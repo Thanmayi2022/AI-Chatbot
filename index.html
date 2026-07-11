@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Chatbot</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- SIDE GLOW EFFECT -->
+
+    <div class="page-glow glow-left"></div>
+    <div class="page-glow glow-right"></div>
+
+
+    <!-- MAIN APPLICATION -->
+
+    <div
+        class="app-container"
+        id="app-container"
+    >
+
+
+        <!-- ============================= -->
+        <!-- SIDEBAR -->
+        <!-- ============================= -->
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+            <!-- SIDEBAR HEADER -->
+
+            <div class="sidebar-header">
+
+                <div class="sidebar-logo">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    <span></span>
+
+                </div>
+
+                <button
+                    class="sidebar-close-btn"
+                    id="sidebar-close-btn"
+                    title="Close sidebar"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- NEW CHAT -->
+
+            <button
+                class="new-chat-btn"
+                id="new-chat-btn"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                <span>New Chat</span>
+
+            </button>
+
+
+            <!-- SEARCH HISTORY -->
+
+            <div class="search-container">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="history-search"
+                    placeholder="Search history..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- HISTORY TITLE -->
+
+            <div class="history-title">
+
+                <span>History</span>
+
+            </div>
+
+
+            <!-- CHAT HISTORY -->
+
+            <div
+                class="history-list"
+                id="history-list"
+            >
+
+                <!-- HISTORY ITEMS ADDED BY JAVASCRIPT -->
+
+            </div>
+
+
+            <!-- SIDEBAR FOOTER -->
+
+            <div class="sidebar-footer">
+
+                <button
+                    class="delete-all-btn"
+                    id="delete-all-btn"
+                >
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    <span>Delete All Chats</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- SIDEBAR RESIZE HANDLE -->
+
+            <div
+                class="sidebar-resizer"
+                id="sidebar-resizer"
+                title="Drag to resize sidebar"
+            ></div>
+
+        </aside>
+
+
+        <!-- ============================= -->
+        <!-- SIDEBAR OPEN HANDLE -->
+        <!-- ============================= -->
+
+        <button
+            class="sidebar-open-handle"
+            id="sidebar-open-handle"
+            title="Open history"
+        >
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+
+        <!-- ============================= -->
+        <!-- MAIN CHAT -->
+        <!-- ============================= -->
+
+        <main class="chat-main">
+
+
+            <!-- HEADER -->
+
+            <header class="chat-header">
+
+                <div class="header-left">
+
+                    <button
+                        class="menu-toggle-btn"
+                        id="menu-toggle-btn"
+                        title="Toggle history"
+                    >
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+                </div>
+
+
+                <div class="header-center">
+
+                    <h1>AI CHATBOT</h1>
+
+                    <p>Powered by Gemini AI</p>
+
+                </div>
+
+
+                <div class="header-right">
+
+                    <button
+                        class="theme-toggle-btn"
+                        id="theme-toggle-btn"
+                        title="Change theme"
+                    >
+
+                        <i
+                            class="fa-solid fa-moon"
+                            id="theme-icon"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- PERSONA -->
+
+            <section class="chat-options">
+
+                <div class="option-group">
+
+                    <label for="persona-select">
+
+                        <i class="fa-solid fa-user-astronaut"></i>
+
+                        Persona
+
+                    </label>
+
+                    <select id="persona-select">
+
+                        <option value="General AI">
+                            General AI
+                        </option>
+
+                        <option value="Teacher">
+                            Teacher
+                        </option>
+
+                        <option value="Programmer">
+                            Programmer
+                        </option>
+
+                        <option value="Interviewer">
+                            Interviewer
+                        </option>
+
+                        <option value="Career Mentor">
+                            Career Mentor
+                        </option>
+
+                        <option value="Study Assistant">
+                            Study Assistant
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- CHAT MESSAGE AREA -->
+
+            <section
+                class="chat-box"
+                id="chat-box"
+            >
+
+                <!-- WELCOME SCREEN -->
+
+                <div
+                    class="welcome-screen"
+                    id="welcome-screen"
+                >
+
+                    <div class="welcome-icon">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+                    <h2>
+                        How can I help you today?
+                    </h2>
+
+                    <p>
+                        Start a new conversation with your AI assistant.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- TYPING STATUS -->
+
+            <div
+                class="typing-status hidden"
+                id="typing-status"
+            >
+
+                <div class="typing-avatar">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                </div>
+
+                <div class="typing-dots">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHAT ACTIONS -->
+
+            <div class="chat-actions">
+
+                <button
+                    class="action-btn"
+                    id="regenerate-btn"
+                    title="Regenerate response"
+                >
+
+                    <i class="fa-solid fa-rotate"></i>
+
+                    <span>Regenerate</span>
+
+                </button>
+
+
+                <button
+                    class="action-btn"
+                    id="copy-btn"
+                    title="Copy last AI response"
+                >
+
+                    <i class="fa-regular fa-copy"></i>
+
+                    <span>Copy</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGE INPUT -->
+
+            <footer class="input-section">
+
+                <div class="message-input-container">
+
+                    <textarea
+                        id="message-input"
+                        rows="1"
+                        placeholder="Message AI Chatbot..."
+                        autocomplete="off"
+                    ></textarea>
+
+
+                    <button
+                        class="send-btn"
+                        id="send-btn"
+                        title="Send message"
+                    >
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                    </button>
+
+                </div>
+
+
+                <p class="ai-warning">
+
+                    AI can make mistakes. Check important information.
+
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- HISTORY MENU TEMPLATE -->
+    <!-- ============================= -->
+
+    <template id="history-menu-template">
+
+        <div class="history-dropdown">
+
+            <button data-action="open">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                Open
+
+            </button>
+
+
+            <button data-action="rename">
+
+                <i class="fa-solid fa-pen"></i>
+
+                Rename
+
+            </button>
+
+
+            <button
+                data-action="delete"
+                class="danger-menu-btn"
+            >
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete
+
+            </button>
+
+        </div>
+
+    </template>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+
+</html>
